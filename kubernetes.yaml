@@ -1,0 +1,40 @@
+# Deployment
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: deployment-hellonode 
+  # Este label es del Deployment (No tiene que ser el mismo que el de los pods) 
+  labels:
+    app: hellonode
+spec: 
+  replicas: 3 
+  selector: 
+    # Este serian los labels que debe buscar el replicaSet 
+    matchLabels: 
+      app: hellonode
+  template: 
+    metadata: 
+      # Estos son los labels de los pods 
+      labels: 
+        app: hellonode
+    spec: 
+      containers: 
+      - name: hellonode
+        image: localhost:5000/nodetest
+
+---
+# nodeport
+apiVersion: v1
+kind: Service
+metadata:
+  name: testdockerfile
+  labels:
+    app: hellonode
+spec:
+  type: NodePort
+  selector:
+    app: hellonode
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
