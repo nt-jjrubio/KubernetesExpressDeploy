@@ -20,7 +20,11 @@ spec:
     spec: 
       containers: 
       - name: hellonode
-        image: localhost:5000/nodetest
+        # Imagen de repositorio
+        # image: localhost:5000/nodetest
+        image: nodetest
+        # Si tenemos la imagen en local tenemos que cambiar la politica de pull
+        imagePullPolicy: IfNotPresent
 
 ---
 # nodeport
